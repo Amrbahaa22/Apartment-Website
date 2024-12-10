@@ -1,0 +1,17 @@
+{
+    "name": "@amr-bahaa/eslint-config",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+        "eslint": "^8.0.0",
+        "eslint-plugin-react": "latest",
+        "eslint-config-turbo": "latest",
+        "eslint-config-next": "latest",
+        "eslint-config-prettier": "latest",
+        "typescript-eslint": "latest",
+        "eslint-plugin-only-warn": "latest",
+        "eslint-plugin-react-hooks": "latest",
+        "globals": "latest",
+        "@next/eslint-plugin-next": "latest"
+    }
+}

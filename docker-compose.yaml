@@ -1,0 +1,17 @@
+services:
+  express-server:
+    image: docker_username/server
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile
+    ports:
+      - '8000:8000'
+
+  # run react-client-prod build on Port 5000
+  react-client:
+    image: docker_username/client
+    build:
+      context: .
+      dockerfile: ./apps/client/Dockerfile
+    ports:
+      - '3000:80'
