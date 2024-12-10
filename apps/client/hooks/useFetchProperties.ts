@@ -17,7 +17,7 @@ const useFetchProperties = () => {
           'http://localhost:3000/v1/apartment'
         );
         setProperties(res.data);
-        toast.error('Properties found');
+        toast.success('Properties found');
       } catch (error: any) {
         setIsError(true);
         setError(error);
