@@ -12,13 +12,13 @@ RUN mkdir -p apps/client
 
 COPY --chown=node:node package.json .
 COPY --chown=node:node yarn.lock .
-COPY --chown=node:node ./apps/client/package.json  ./apps/client
+COPY --chown=node:node ./package.json  ./apps/client
 
 # Install dependencies
 RUN yarn --frozen-lockfile
 
 # Copy the rest of the application code to the container
-COPY ./apps/client ./apps/client
+COPY ./ ./apps/client
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
