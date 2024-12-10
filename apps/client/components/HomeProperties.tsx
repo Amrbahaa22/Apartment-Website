@@ -1,10 +1,9 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { PropertyType } from './types';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import Spinner from './Spinner';
 import { v4 as uuidv4 } from 'uuid';
+import useFetchProperties from '@/hooks/useFetchProperties';
 
 const DynamicComponent = dynamic(() => import('@components/PropertyCard'), {
   loading: () => <Spinner />,
@@ -12,31 +11,7 @@ const DynamicComponent = dynamic(() => import('@components/PropertyCard'), {
 });
 
 const HomeProperties: React.FC = () => {
-  const [properties, setProperties] = useState<PropertyType[]>();
-  const [loading, setLoading] = useState(true);
-  console.log("🚀 ~ properties:", properties);
-
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const res = await axios.get<PropertyType[]>(
-          'http://localhost:3000/v1/apartment'
-        );
-
-        if (res.status !== 200 || !res.data) {
-          throw new Error('Failed to fetch data');
-        }
-        setProperties(res.data);
-      } catch (error) {
-        console.log('🚀 ~ fetchProperties ~ error:', error);
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProperties();
-  }, []);
+  const { properties, loading } = useFetchProperties();
 
   if (loading) {
     return <Spinner />;

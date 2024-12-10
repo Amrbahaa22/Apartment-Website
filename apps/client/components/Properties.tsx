@@ -1,38 +1,11 @@
 'use client';
-import { useState, useEffect } from 'react';
 import PropertyCard from '@components/PropertyCard';
 import Spinner from '@components/Spinner';
-import { PropertyType } from './types';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import useFetchProperties from '@/hooks/useFetchProperties';
 
 const Properties = () => {
-  const [properties, setProperties] = useState<PropertyType[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const res = await axios.get<PropertyType[]>(
-          'http://localhost:3000/v1/apartment'
-        );
-
-        if (res.status !== 200 || !res.data) {
-          throw new Error('Failed to fetch data');
-        }
-        setProperties(res.data);
-        toast.success('Property Added');
-      } catch (error: any) {
-        console.log('🚀 ~ fetchProperties ~ error:', error);
-        console.log(error);
-        toast.error(`Failed to delete property + ${error.message}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProperties();
-  });
+  const { properties, loading, isError, error } = useFetchProperties();
 
   return loading || !properties ? (
     <Spinner />

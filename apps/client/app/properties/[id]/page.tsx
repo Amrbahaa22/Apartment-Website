@@ -9,34 +9,11 @@ import Spinner from '@components/Spinner';
 import { FaArrowLeft } from 'react-icons/fa';
 import { PropertyType } from '@/components/types';
 import axios from 'axios';
+import useFetchProperty from '@/hooks/useFetchProperty';
 
 const PropertyPage = () => {
   const { id } = useParams();
-  const [property, setProperty] = useState<PropertyType>();
-  const [loading, setLoading] = useState(true);
-  console.log('🚀 ~ PropertyPage ~ loading:', loading);
-
-  useEffect(() => {
-    const fetchPropertyData = async () => {
-      try {
-        const res = await axios.get<PropertyType>(
-          `http://localhost:3000/v1/apartment/${id}`
-        );
-        if (res.status === 200 && res.data) {
-          setProperty(res.data);
-        } else {
-          console.error('Error fetching property:', res.data);
-          throw new Error('Error fetching property');
-        }
-      } catch (error) {
-        console.error('Error fetching property:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPropertyData();
-  }, [id]);
+  const { loading, property } = useFetchProperty(id as string);
 
   if (!property && !loading) {
     return (
